@@ -9,7 +9,7 @@ import {
   signOut,
   updateProfile
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { firebaseConfig, import { firebaseConfig } from "../firebase-config.js"; } from "../firebase-config.js";
+import { firebaseConfig } from "../firebase-config.js";
 
 let app = null;
 let auth = null;
