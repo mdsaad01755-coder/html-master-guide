@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://mdsaad01755-coder.github.io/html-master-guide/sitemap.xml
