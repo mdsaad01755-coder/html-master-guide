@@ -6,7 +6,7 @@ import {
   loginWithGoogle,
   logout,
   isFirebaseReady,
-  
+  isFirebaseConfigured
 } from "./auth.js";
 import { openModal, closeModal, showToast } from "./ui.js";
 import { renderProfile, initProfile } from "./profile.js";
@@ -16,21 +16,13 @@ import { initProgress } from "./progress.js";
 
 export function initAuthUI() {
   const authBtn = document.querySelector("#authBtn");
-  const authSection = document.querySelector("#authPage");
-  const authForm = document.querySelector("#authPageForm") || document.querySelector("#authForm");
-  const googleBtn = document.querySelector("#authPageGoogleBtn") || document.querySelector("#googleLoginBtn");
+  const authForm = document.querySelector("#authForm");
+  const googleBtn = document.querySelector("#googleLoginBtn");
   const logoutBtn = document.querySelector("#logoutBtn");
-  const tabLogin = document.querySelector("#authPageLoginTab") || document.querySelector("#tabLogin");
-  const tabSignup = document.querySelector("#authPageSignupTab") || document.querySelector("#tabSignup");
-  const authError = document.querySelector("#authPageError") || document.querySelector("#authError");
+  const tabLogin = document.querySelector("#tabLogin");
+  const tabSignup = document.querySelector("#tabSignup");
+  const authError = document.querySelector("#authError");
   const firebaseNotice = document.querySelector("#firebaseNotice");
-  const authPanelTitle = document.querySelector("#authPagePanelTitle");
-  const modalTitle = document.querySelector("#authModalTitle");
-
-  const authNameInput = document.querySelector("#authPageName") || document.querySelector("#authName");
-  const authEmailInput = document.querySelector("#authPageEmail") || document.querySelector("#authEmail");
-  const authPasswordInput = document.querySelector("#authPagePassword") || document.querySelector("#authPassword");
-  const authSubmit = document.querySelector("#authPageSubmit") || document.querySelector("#authSubmit");
 
   let mode = "login";
 
@@ -48,11 +40,10 @@ export function initAuthUI() {
     mode = newMode;
     tabLogin?.classList.toggle("active", mode === "login");
     tabSignup?.classList.toggle("active", mode === "signup");
-    const nameWrapper = document.querySelector(".auth-name-field") || document.querySelector("#authNameField");
-    if (nameWrapper) nameWrapper.hidden = mode !== "signup";
-    if (authSubmit) authSubmit.textContent = mode === "login" ? "Sign In" : "Create Account";
-    if (authPanelTitle) authPanelTitle.textContent = mode === "login" ? "Sign in to continue" : "Create your account";
-    if (modalTitle) modalTitle.textContent = mode === "login" ? "Welcome back" : "Create your account";
+    const nameField = document.querySelector("#authNameField");
+    if (nameField) nameField.hidden = mode !== "signup";
+    const submitBtn = document.querySelector("#authSubmit");
+    if (submitBtn) submitBtn.textContent = mode === "login" ? "Sign In" : "Create Account";
     if (authError) authError.textContent = "";
   }
 
@@ -71,9 +62,6 @@ export function initAuthUI() {
   authBtn?.addEventListener("click", () => {
     if (authBtn.dataset.action === "profile") {
       document.querySelector("#profile")?.scrollIntoView({ behavior: "smooth" });
-    } else if (authSection) {
-      authSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      setMode("login");
     } else {
       openModal("authModal");
     }
@@ -84,9 +72,9 @@ export function initAuthUI() {
 
   authForm?.addEventListener("submit", async event => {
     event.preventDefault();
-    const email = authEmailInput?.value?.trim();
-    const password = authPasswordInput?.value;
-    const name = authNameInput?.value?.trim();
+    const email = document.querySelector("#authEmail")?.value?.trim();
+    const password = document.querySelector("#authPassword")?.value;
+    const name = document.querySelector("#authName")?.value?.trim();
 
     if (!email || !password) {
       if (authError) authError.textContent = "Please enter email and password.";

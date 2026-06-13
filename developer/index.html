@@ -80,68 +80,6 @@
       </div>
     </section>
 
-    <section class="section auth-section" id="authPage" aria-labelledby="authPageTitle">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Your learning account</p>
-        <h2 id="authPageTitle">Login or create your free account</h2>
-        <p class="section-subtitle">Secure Firebase authentication keeps your lessons, quizzes, and progress safe.</p>
-      </div>
-      <div class="auth-page-grid reveal">
-        <div class="auth-page-copy">
-          <div class="auth-feature-card">
-            <span class="eyebrow">Fast access</span>
-            <h3>Save progress and continue anywhere</h3>
-            <p>Sign in once and keep your completed lessons, quiz scores, and projects synced across devices.</p>
-          </div>
-          <div class="auth-feature-list">
-            <article class="auth-feature">
-              <h4>Smart dashboard</h4>
-              <p>Track completed lessons, quiz history, and practice achievements from your profile page.</p>
-            </article>
-            <article class="auth-feature">
-              <h4>Choose your flow</h4>
-              <p>Use email/password or Google login for a fast and secure sign-in experience.</p>
-            </article>
-            <article class="auth-feature">
-              <h4>Protected data</h4>
-              <p>Your learning progress is encrypted and managed by Firebase so you can focus on building skills.</p>
-            </article>
-          </div>
-        </div>
-        <div class="auth-page-panel reveal">
-          <div class="auth-page-header">
-            <span class="badge success">Firebase Authentication</span>
-            <h3 id="authPagePanelTitle">Sign in to continue</h3>
-            <p class="muted">Already have an account? Great. If not, create one in seconds.</p>
-          </div>
-          <div class="auth-tabs">
-            <button class="auth-tab active" id="authPageLoginTab" type="button">Sign In</button>
-            <button class="auth-tab" id="authPageSignupTab" type="button">Sign Up</button>
-          </div>
-          <form id="authPageForm" novalidate>
-            <div class="form-field auth-name-field" hidden>
-              <label for="authPageName">Full name</label>
-              <input type="text" id="authPageName" placeholder="Your full name" autocomplete="name">
-            </div>
-            <div class="form-field">
-              <label for="authPageEmail">Email</label>
-              <input type="email" id="authPageEmail" placeholder="you@example.com" autocomplete="email" required>
-            </div>
-            <div class="form-field">
-              <label for="authPagePassword">Password</label>
-              <input type="password" id="authPagePassword" placeholder="Create a strong password" autocomplete="current-password" required>
-            </div>
-            <p class="auth-error" id="authPageError" aria-live="polite"></p>
-            <button class="btn primary full" id="authPageSubmit" type="submit">Sign In</button>
-          </form>
-          <div class="auth-divider"><span>or</span></div>
-          <button class="btn google-btn full" id="authPageGoogleBtn" type="button">
-            <span class="google-icon">G</span> Continue with Google
-          </button>
-        </div>
-      </div>
-    </section>
-
     <section class="section overview" aria-labelledby="overview-title">
       <div class="section-heading reveal">
         <p class="eyebrow">Start here</p>
@@ -451,6 +389,6 @@
     </div>
   </div>
 
-  <script type="module" src="script.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

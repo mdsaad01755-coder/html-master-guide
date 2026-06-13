@@ -9,9 +9,7 @@ import {
   signOut,
   updateProfile
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-export function isFirebaseConfigured() {
-  return typeof firebaseConfig !== "undefined" && firebaseConfig !== null;
-}
+import { firebaseConfig, isFirebaseConfigured } from "../firebase-config.js";
 
 let app = null;
 let auth = null;
@@ -78,3 +76,4 @@ export async function logout() {
   if (!auth) return;
   await signOut(auth);
 }
+export { isFirebaseConfigured };
