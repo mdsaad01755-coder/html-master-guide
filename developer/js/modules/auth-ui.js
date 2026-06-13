@@ -6,7 +6,7 @@ import {
   loginWithGoogle,
   logout,
   isFirebaseReady,
-  isFirebaseConfigured
+  
 } from "./auth.js";
 import { openModal, closeModal, showToast } from "./ui.js";
 import { renderProfile, initProfile } from "./profile.js";
