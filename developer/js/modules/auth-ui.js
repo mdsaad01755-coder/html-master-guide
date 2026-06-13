@@ -34,7 +34,7 @@ export function initAuthUI() {
 
   let mode = "login";
 
-  if (isFirebaseConfigured()) {
+  if (isFirebaseConfigured()()()) {
     const ready = initAuth();
     if (ready) {
       initProgress(getApp());
