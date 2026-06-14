@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login • HTML Master Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card: #111827;
+      --accent: linear-gradient(135deg, #00f2fe, #4facfe);
+      --text: #e0f2fe;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 900px;
+      height: 520px;
+      background: var(--card);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .form-container {
+      flex: 1;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .form-container h1 {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+      background: var(--accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .toggle-form {
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+      color: #94a3b8;
+    }
+
+    .toggle-form span {
+      color: #67e8f9;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      background: #1e2937;
+      border: 2px solid #334155;
+      border-radius: 12px;
+      color: white;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #67e8f9;
+      box-shadow: 0 0 0 4px rgba(103, 232, 249, 0.15);
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: 1.2rem;
+    }
+
+    .btn {
+      padding: 16px;
+      background: var(--accent);
+      color: #0b0f19;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 20px rgba(103, 232, 249, 0.3);
+    }
+
+    .banner {
+      flex: 1;
+      background: linear-gradient(135deg, #00f2fe, #4facfe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 40px;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .container.sign-up-mode .form-container {
+      transform: translateX(100%);
+    }
+
+    .container.sign-up-mode .banner {
+      transform: translateX(-100%);
+    }
+
+    @media (max-width: 768px) {
+      .container { flex-direction: column; height: auto; width: 95%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="container">
+    
+    <!-- Login Form -->
+    <div class="form-container" id="loginForm">
+      <h1>Welcome Back</h1>
+      <p class="toggle-form">Don't have an account? <span onclick="toggleForm()">Sign Up</span></p>
+      
+      <div class="input-group">
+        <i>👤</i>
+        <input type="email" id="loginEmail" placeholder="Email address" required>
+      </div>
+      
+      <div class="input-group">
+        <i>🔒</i>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+      </div>
+
+      <button class="btn" onclick="handleLogin()">Sign In</button>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div class="form-container" id="signupForm" style="display:none;">
+      <h1>Create Account</h1>
+      <p class="toggle-form">Already have an account? <span onclick="toggleForm()">Sign In</span></p>
+      
+      <div class="input-group">
+        <i>👤</i>
+        <input type="text" id="signupName" placeholder="Full Name" required>
+      </div>
+      
+      <div class="input-group">
+        <i>✉️</i>
+        <input type="email" id="signupEmail" placeholder="Email address" required>
+      </div>
+      
+      <div class="input-group">
+        <i>🔒</i>
+        <input type="password" id="signupPassword" placeholder="Create Password" required>
+      </div>
+
+      <button class="btn" onclick="handleSignup()">Create Account</button>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner" id="banner">
+      <div class="banner-content">
+        <h2 id="bannerTitle">Hello, Learner!</h2>
+        <p id="bannerText">Join thousands of students mastering HTML with interactive lessons.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================== Firebase Config ==================
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY_HERE",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "XXXXXXXXXX",
+      appId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Toggle Login/Signup
+    function toggleForm() {
+      const container = document.getElementById('container');
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+      
+      container.classList.toggle('sign-up-mode');
+      
+      if (container.classList.contains('sign-up-mode')) {
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'flex';
+        document.getElementById('bannerTitle').textContent = "Let's Start Learning!";
+        document.getElementById('bannerText').textContent = "Create your account and begin your HTML journey today.";
+      } else {
+        loginForm.style.display = 'flex';
+        signupForm.style.display = 'none';
+        document.getElementById('bannerTitle').textContent = "Hello, Learner!";
+        document.getElementById('bannerText').textContent = "Join thousands of students mastering HTML with interactive lessons.";
+      }
+    }
+
+    // Handle Login
+    async function handleLogin() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      if (!email || !password) {
+        alert("ইমেইল এবং পাসওয়ার্ড দিন");
+        return;
+      }
+
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+        alert("✅ লগইন সফল হয়েছে!");
+        window.location.href = "../index.html";   // পরে চেঞ্জ করতে পারো
+      } catch (error) {
+        alert("❌ " + error.message);
+      }
+    }
+
+    // Handle Signup
+    async function handleSignup() {
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+
+      if (!email || !password) {
+        alert("ইমেইল এবং পাসওয়ার্ড দিন");
+        return;
+      }
+
+      try {
+        await auth.createUserWithEmailAndPassword(email, password);
+        alert("🎉 অ্যাকাউন্ট তৈরি হয়েছে! এখন লগইন করুন");
+        toggleForm();  // লগইন ফর্মে নিয়ে যাবে
+      } catch (error) {
+        alert("❌ " + error.message);
+      }
+    }
+
+    // Google Sign In (যদি চাও)
+    async function googleSignIn() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        await auth.signInWithPopup(provider);
+        alert("Google দিয়ে লগইন সফল!");
+        window.location.href = "../index.html";
+      } catch (error) {
+        alert("❌ " + error.message);
+      }
+    }
+  </script>
+</body>
+</html>
