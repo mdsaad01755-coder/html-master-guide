@@ -27,11 +27,12 @@ export function initAuthUI() {
   let mode = "login";
 
   if (isFirebaseConfigured()) {
-    const ready = initAuth();
-    if (ready) {
-      initProgress(getApp());
-      firebaseNotice?.classList.add("hidden");
-    }
+    initAuth().then(ready => {
+      if (ready) {
+        initProgress(getApp());
+        firebaseNotice?.classList.add("hidden");
+      }
+    });
   } else {
     firebaseNotice?.classList.remove("hidden");
   }

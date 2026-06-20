@@ -1,14 +1,20 @@
-import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getUser, isFirebaseReady } from "./auth.js";
 import { LESSONS } from "../data/lessons.js";
 
 const LOCAL_KEY = "html-master-progress";
 
 let db = null;
+let firestore = {};
 
-export function initProgress(firebaseApp) {
+export async function initProgress(firebaseApp) {
   if (firebaseApp) {
-    db = getFirestore(firebaseApp);
+    try {
+      const { getFirestore, ...rest } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+      firestore = rest;
+      db = getFirestore(firebaseApp);
+    } catch (err) {
+      console.error("Firestore initialization failed:", err);
+    }
   }
 }
 
@@ -35,19 +41,19 @@ function saveLocalProgress(data) {
 
 async function getFirestoreProgress(uid) {
   if (!db) return null;
-  const ref = doc(db, "users", uid);
-  const snap = await getDoc(ref);
+  const ref = firestore.doc(db, "users", uid);
+  const snap = await firestore.getDoc(ref);
   return snap.exists() ? snap.data() : null;
 }
 
 async function saveFirestoreProgress(uid, data) {
   if (!db) return;
-  const ref = doc(db, "users", uid);
-  const existing = await getDoc(ref);
+  const ref = firestore.doc(db, "users", uid);
+  const existing = await firestore.getDoc(ref);
   if (existing.exists()) {
-    await updateDoc(ref, { ...data, lastActive: new Date().toISOString() });
+    await firestore.updateDoc(ref, { ...data, lastActive: new Date().toISOString() });
   } else {
-    await setDoc(ref, { ...data, createdAt: new Date().toISOString(), lastActive: new Date().toISOString() });
+    await firestore.setDoc(ref, { ...data, createdAt: new Date().toISOString(), lastActive: new Date().toISOString() });
   }
 }
 
