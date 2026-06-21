@@ -4,12 +4,13 @@
  * Enable Authentication (Email/Password + Google) and Firestore Database.
  */
 export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCP-ioLQd_KPe0__j7QVbTvf5CjNvAexIw",
+  authDomain: "ecommerce-site-836f2.firebaseapp.com",
+  projectId: "ecommerce-site-836f2",
+  storageBucket: "ecommerce-site-836f2.firebasestorage.app",
+  messagingSenderId: "396450998465",
+  appId: "1:396450998465:web:52e0e1efd531662e3f8c40",
+  measurementId: "G-F4D5G2CYR2"
 };
 
 export function isFirebaseConfigured() {
