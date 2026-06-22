@@ -5,6 +5,7 @@ import { initPlayground } from "./modules/playground.js";
 import { initQuiz } from "./modules/quiz.js";
 import { initContent } from "./modules/content.js";
 import { initAuthUI } from "./modules/auth-ui.js";
+import { initCssLearning } from "./modules/css-learning.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
@@ -16,5 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initPlayground();
   initQuiz();
   initContent();
+  initCssLearning();
   initReveal();
 });

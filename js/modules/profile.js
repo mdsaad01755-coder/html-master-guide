@@ -1,6 +1,7 @@
 import { getUser, isLoggedIn, isFirebaseReady } from "./auth.js";
 import { loadProgress, getProgressStats } from "./progress.js";
 import { LESSONS } from "../data/lessons.js";
+import { CSS_LESSONS } from "../data/css-content.js";
 import { escapeHtml } from "./ui.js";
 
 export async function renderProfile() {
@@ -30,7 +31,8 @@ export async function renderProfile() {
     ? `<img src="${escapeHtml(user.photoURL)}" alt="Profile photo" class="profile-avatar">`
     : `<div class="profile-avatar placeholder">${displayName.charAt(0).toUpperCase()}</div>`;
 
-  const lessonList = LESSONS.map(lesson => {
+  const allLessons = [...LESSONS, ...CSS_LESSONS.map(lesson => ({ ...lesson, title: `CSS: ${lesson.title}` }))];
+  const lessonList = allLessons.map(lesson => {
     const done = progress.completedLessons?.includes(lesson.id);
     return `<li class="${done ? "done" : ""}">${done ? "✓" : "○"} ${escapeHtml(lesson.title)}</li>`;
   }).join("");

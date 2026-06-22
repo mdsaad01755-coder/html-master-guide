@@ -1,5 +1,6 @@
 import { getUser, isFirebaseReady } from "./auth.js";
 import { LESSONS } from "../data/lessons.js";
+import { CSS_LESSONS } from "../data/css-content.js";
 
 const LOCAL_KEY = "html-master-progress";
 
@@ -125,7 +126,7 @@ export async function savePlaygroundProject(name, html, css, js) {
 }
 
 export function getProgressStats(progress) {
-  const totalLessons = LESSONS.length;
+  const totalLessons = LESSONS.length + CSS_LESSONS.length;
   const completed = progress.completedLessons?.length || 0;
   const lessonPercent = Math.round((completed / totalLessons) * 100);
   const quizzes = progress.quizScores || [];
