@@ -1,4 +1,4 @@
-import { getUser, isLoggedIn, isFirebaseReady } from "./auth.js";
+import { getUser, isLoggedIn, isFirebaseReady, isFirebaseConfigured } from "./auth.js";
 import { loadProgress, getProgressStats } from "./progress.js";
 import { LESSONS } from "../data/lessons.js";
 import { CSS_LESSONS } from "../data/css-content.js";
@@ -12,7 +12,9 @@ export async function renderProfile() {
 
   const user = getUser();
 
-  if (!isLoggedIn()) {
+  const showLocalProfile = !isLoggedIn() && !isFirebaseConfigured();
+
+  if (!isLoggedIn() && !showLocalProfile) {
     container.hidden = true;
     if (profileActions) profileActions.hidden = true;
     if (guestView) guestView.hidden = false;
@@ -26,8 +28,8 @@ export async function renderProfile() {
   const progress = await loadProgress();
   const stats = getProgressStats(progress);
 
-  const displayName = user.displayName || user.email?.split("@")[0] || "Learner";
-  const avatar = user.photoURL
+  const displayName = user?.displayName || user?.email?.split("@")[0] || "Local Learner";
+  const avatar = user?.photoURL
     ? `<img src="${escapeHtml(user.photoURL)}" alt="Profile photo" class="profile-avatar">`
     : `<div class="profile-avatar placeholder">${displayName.charAt(0).toUpperCase()}</div>`;
 
@@ -52,7 +54,7 @@ export async function renderProfile() {
       ${avatar}
       <div>
         <h3>${escapeHtml(displayName)}</h3>
-        <p class="muted">${escapeHtml(user.email || "")}</p>
+        <p class="muted">${escapeHtml(user?.email || "Saved in this browser")}</p>
         ${isFirebaseReady() ? '<span class="badge success">Cloud sync active</span>' : '<span class="badge">Local progress only</span>'}
       </div>
     </div>

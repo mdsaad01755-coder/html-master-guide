@@ -51,6 +51,39 @@ export function initReveal() {
   document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 }
 
+export function initCodeCopyButtons() {
+  function enhance(root = document) {
+    root.querySelectorAll("pre").forEach(block => {
+      if (block.dataset.copyReady === "true") return;
+      const code = block.querySelector("code");
+      if (!code) return;
+
+      block.dataset.copyReady = "true";
+      block.classList.add("copyable-code");
+      const button = document.createElement("button");
+      button.className = "copy-code-btn";
+      button.type = "button";
+      button.textContent = "Copy Code";
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(code.textContent || "");
+          button.textContent = "Copied";
+          showToast("Code copied", "success");
+          setTimeout(() => {
+            button.textContent = "Copy Code";
+          }, 1400);
+        } catch {
+          showToast("Copy failed. Select the code manually.", "info");
+        }
+      });
+      block.appendChild(button);
+    });
+  }
+
+  enhance();
+  document.addEventListener("html-master:content-rendered", () => enhance());
+}
+
 export function showToast(message, type = "info") {
   const toast = document.createElement("div");
   toast.className = `toast toast-${type}`;

@@ -1,4 +1,4 @@
-import { initTheme, initNav, initReveal, initModals } from "./modules/ui.js";
+import { initTheme, initNav, initReveal, initModals, initCodeCopyButtons } from "./modules/ui.js";
 import { initTags } from "./modules/tags.js";
 import { initLessons } from "./modules/lessons.js";
 import { initPlayground } from "./modules/playground.js";
@@ -18,5 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initQuiz();
   initContent();
   initCssLearning();
+  initCodeCopyButtons();
   initReveal();
 });

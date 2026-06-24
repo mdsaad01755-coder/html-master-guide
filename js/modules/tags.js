@@ -49,6 +49,7 @@ export function renderTags(items = TAGS) {
     return;
   }
   tagList.innerHTML = items.map((tag, i) => renderTagCard(tag, i)).join("");
+  document.dispatchEvent(new CustomEvent("html-master:content-rendered"));
 }
 
 export function initTags() {

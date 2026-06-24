@@ -459,6 +459,75 @@ pre {
   transition: width 600ms ease;
 }
 
+.progress-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(42px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.progress-step {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 800;
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.progress-step:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.progress-step.complete {
+  color: #021511;
+  border-color: color-mix(in srgb, var(--accent) 70%, var(--line));
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.step-check {
+  position: absolute;
+  inset: 6px auto auto 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: color-mix(in srgb, #021511 70%, transparent);
+  transform: scale(0);
+  transition: transform 280ms ease;
+}
+
+.step-check::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  width: 4px;
+  height: 7px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.progress-step.complete .step-check {
+  animation: check-pop 420ms ease both;
+}
+
+.progress-step.complete .step-number {
+  opacity: 0.82;
+}
+
+@keyframes check-pop {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.16); }
+  100% { transform: scale(1); }
+}
+
 #overallProgressText {
   margin: 0;
   color: var(--muted);
@@ -593,8 +662,7 @@ pre {
 
 .practice-editor {
   width: 100%;
-  min-height: 100px;
-  margin: 10px 0;
+  min-height: 180px;
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -603,6 +671,26 @@ pre {
   resize: vertical;
   outline: none;
   font-size: 0.88rem;
+}
+
+.lesson-live-lab {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.mini-editor-panel,
+.mini-preview-panel {
+  box-shadow: none;
+}
+
+.lesson-preview {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  border: 0;
+  background: #fff;
 }
 
 .practice-editor:focus {
@@ -927,7 +1015,14 @@ pre {
 .playground-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
+}
+
+.shortcut-hint {
+  color: var(--muted);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
 }
 
 #previewFrame {
@@ -1131,6 +1226,36 @@ pre {
   display: grid;
   gap: 10px;
   max-width: 860px;
+}
+
+.interview-controls {
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 360px);
+  gap: 12px;
+  align-items: center;
+  max-width: 860px;
+  margin-bottom: 18px;
+}
+
+.difficulty-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.interview-controls input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--text);
+  background: var(--surface);
+  outline: none;
+}
+
+.interview-controls input:focus {
+  border-color: var(--accent);
 }
 
 .interview-item {
@@ -1367,6 +1492,52 @@ pre {
 .footer a {
   color: var(--accent);
   font-weight: 800;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.html-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+  border-radius: var(--radius);
+  color: #021511;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  font-weight: 800;
+  font-size: 0.82rem;
+}
+
+.copyable-code {
+  position: relative;
+  padding-top: 54px;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) - 2px);
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.copy-code-btn:hover {
+  border-color: var(--accent);
 }
 
 /* Modal */
@@ -1642,6 +1813,11 @@ pre {
   .lesson-grid {
     grid-template-columns: 1fr;
   }
+
+  .lesson-live-lab,
+  .interview-controls {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1683,5 +1859,123 @@ pre {
   .auth-btn {
     padding: 8px 10px;
     font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    min-height: 64px;
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 7px;
+  }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 0.82rem;
+  }
+
+  .brand span:last-child {
+    max-width: 104px;
+    font-size: 0.9rem;
+  }
+
+  .menu-toggle,
+  .theme-toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .auth-btn {
+    min-height: 38px;
+    max-width: 76px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-links {
+    top: 64px;
+    left: 11px;
+    right: 11px;
+  }
+
+  .section {
+    padding: 54px 0;
+  }
+
+  .hero {
+    padding-top: 36px;
+  }
+
+  .lesson-card,
+  .feature-card,
+  .level-card,
+  .security-card,
+  .doc-block,
+  .roadmap,
+  .quiz-box,
+  .guest-card,
+  .project-card,
+  .mistake-card,
+  .tag-card {
+    padding: 16px;
+  }
+
+  .progress-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .progress-step {
+    min-height: 38px;
+    font-size: 0.82rem;
+  }
+
+  #htmlEditor,
+  #cssEditor,
+  #jsEditor,
+  .practice-editor,
+  .css-live-html,
+  .css-live-css {
+    height: 170px;
+    min-height: 150px;
+    font-size: 0.78rem;
+    padding: 12px;
+  }
+
+  #previewFrame,
+  .lesson-preview,
+  .css-live-preview {
+    min-height: 220px;
+  }
+
+  .panel-title {
+    min-height: 42px;
+    padding: 8px 12px;
+  }
+
+  .stats,
+  .profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-top {
+    grid-template-columns: 1fr;
+  }
+
+  .interview-item summary {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 14px;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+  }
+
+  .copyable-code {
+    padding-top: 48px;
   }
 }

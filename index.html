@@ -113,9 +113,7 @@
         <p class="section-subtitle">Follow the path from beginner to advanced. Complete each lesson and practice challenge to build real skills.</p>
       </div>
       <div class="progress-tracker reveal">
-        <div class="progress-bar-wrap">
-          <div class="progress-bar" id="overallProgressBar" style="width: 0%"></div>
-        </div>
+        <div class="progress-steps" id="overallProgressSteps" aria-label="HTML lesson progress"></div>
         <p id="overallProgressText">0 of 17 lessons complete (0%)</p>
       </div>
       <div id="roadmapContent"></div>
@@ -243,6 +241,7 @@
             <button class="btn primary small" id="runCode" type="button">Run</button>
             <button class="btn small ghost" id="resetCode" type="button">Reset</button>
             <button class="btn small secondary" id="saveProject" type="button">Save Project</button>
+            <span class="shortcut-hint">Ctrl+Enter runs code</span>
           </div>
           <div class="preview-panel">
             <div class="panel-title"><span>Live Preview</span></div>
@@ -324,6 +323,16 @@
         <h2 id="interview-title">HTML Interview Questions</h2>
         <p class="section-subtitle">Common questions asked in web developer interviews — with clear answers.</p>
       </div>
+      <div class="interview-controls reveal">
+        <div class="difficulty-filters" id="interviewDifficultyFilters" aria-label="Filter interview questions by difficulty">
+          <button class="quiz-tab active" data-difficulty="all" type="button">All</button>
+          <button class="quiz-tab" data-difficulty="beginner" type="button">Beginner</button>
+          <button class="quiz-tab" data-difficulty="intermediate" type="button">Intermediate</button>
+          <button class="quiz-tab" data-difficulty="advanced" type="button">Advanced</button>
+        </div>
+        <label class="sr-only" for="interviewSearch">Search interview questions</label>
+        <input type="search" id="interviewSearch" placeholder="Search questions or answers">
+      </div>
       <div class="interview-list" id="interviewContent"></div>
     </section>
 
@@ -380,7 +389,11 @@
 
   <footer class="footer">
     <p>HTML Master Guide — an interactive learning platform for aspiring web developers.</p>
-    <a href="#top">Back to top</a>
+    <div class="footer-links">
+      <a href="https://github.com/mdsaad01755-coder/html-master-guide" target="_blank" rel="noopener">GitHub repo</a>
+      <span class="html-badge">Made with HTML</span>
+      <a href="#top">Back to top</a>
+    </div>
   </footer>
 
   <!-- Auth Modal -->

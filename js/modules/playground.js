@@ -1,6 +1,8 @@
 import { savePlaygroundProject } from "./progress.js";
 import { showToast } from "./ui.js";
 
+const PLAYGROUND_DRAFT_KEY = "html-master-playground-draft";
+
 const STARTER_HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,9 +75,26 @@ ${html}
     preview.srcdoc = buildDocument();
   }
 
-  htmlEditor.value = STARTER_HTML;
-  if (cssEditor) cssEditor.value = STARTER_CSS;
-  if (jsEditor) jsEditor.value = STARTER_JS;
+  function saveDraft() {
+    localStorage.setItem(PLAYGROUND_DRAFT_KEY, JSON.stringify({
+      html: htmlEditor.value,
+      css: cssEditor?.value || "",
+      js: jsEditor?.value || ""
+    }));
+  }
+
+  function loadDraft() {
+    try {
+      return JSON.parse(localStorage.getItem(PLAYGROUND_DRAFT_KEY));
+    } catch {
+      return null;
+    }
+  }
+
+  const draft = loadDraft();
+  htmlEditor.value = draft?.html || STARTER_HTML;
+  if (cssEditor) cssEditor.value = draft?.css || STARTER_CSS;
+  if (jsEditor) jsEditor.value = draft?.js || STARTER_JS;
   runPreview();
 
   runCode?.addEventListener("click", runPreview);
@@ -83,6 +102,7 @@ ${html}
     htmlEditor.value = STARTER_HTML;
     if (cssEditor) cssEditor.value = STARTER_CSS;
     if (jsEditor) jsEditor.value = STARTER_JS;
+    saveDraft();
     runPreview();
     showToast("Playground reset", "info");
   });
@@ -97,8 +117,17 @@ ${html}
   let debounce;
   [htmlEditor, cssEditor, jsEditor].forEach(editor => {
     editor?.addEventListener("input", () => {
+      saveDraft();
       clearTimeout(debounce);
       debounce = setTimeout(runPreview, 600);
+    });
+
+    editor?.addEventListener("keydown", event => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+        event.preventDefault();
+        runPreview();
+        showToast("Code ran", "success");
+      }
     });
   });
 }

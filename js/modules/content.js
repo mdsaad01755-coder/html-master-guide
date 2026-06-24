@@ -1,11 +1,15 @@
 import { CHEAT_SHEET, COMMON_MISTAKES, MINI_PROJECTS, INTERVIEW_QUESTIONS, DEVELOPER_TIPS } from "../data/content.js";
 import { escapeHtml } from "./ui.js";
 
+let interviewDifficulty = "all";
+let interviewQuery = "";
+
 export function initContent() {
   renderCheatSheet();
   renderMistakes();
   renderProjects();
   renderInterview();
+  initInterviewControls();
   renderTips();
 }
 
@@ -70,15 +74,55 @@ function renderProjects() {
   `).join("");
 }
 
+function getQuestionDifficulty(question, index) {
+  if (question.difficulty) return question.difficulty;
+  if (index < 4) return "beginner";
+  if (index < 8) return "intermediate";
+  return "advanced";
+}
+
 function renderInterview() {
   const el = document.querySelector("#interviewContent");
   if (!el) return;
-  el.innerHTML = INTERVIEW_QUESTIONS.map((q, i) => `
+  const filtered = INTERVIEW_QUESTIONS
+    .map((question, index) => ({ ...question, index, difficulty: getQuestionDifficulty(question, index) }))
+    .filter(q => interviewDifficulty === "all" || q.difficulty === interviewDifficulty)
+    .filter(q => {
+      const haystack = `${q.question} ${q.answer} ${q.difficulty}`.toLowerCase();
+      return haystack.includes(interviewQuery);
+    });
+
+  if (!filtered.length) {
+    el.innerHTML = '<p class="notice">No interview questions match that filter.</p>';
+    return;
+  }
+
+  el.innerHTML = filtered.map(q => `
     <details class="interview-item reveal visible">
-      <summary><span class="q-number">Q${i + 1}.</span> ${escapeHtml(q.question)}</summary>
+      <summary><span class="q-number">Q${q.index + 1}.</span> ${escapeHtml(q.question)} <span class="badge ghost">${escapeHtml(q.difficulty)}</span></summary>
       <p>${escapeHtml(q.answer)}</p>
     </details>
   `).join("");
+}
+
+function initInterviewControls() {
+  const filters = document.querySelector("#interviewDifficultyFilters");
+  const search = document.querySelector("#interviewSearch");
+
+  filters?.addEventListener("click", event => {
+    const button = event.target.closest("[data-difficulty]");
+    if (!button) return;
+    interviewDifficulty = button.dataset.difficulty;
+    filters.querySelectorAll("[data-difficulty]").forEach(item => {
+      item.classList.toggle("active", item === button);
+    });
+    renderInterview();
+  });
+
+  search?.addEventListener("input", () => {
+    interviewQuery = search.value.trim().toLowerCase();
+    renderInterview();
+  });
 }
 
 function renderTips() {

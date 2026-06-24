@@ -89,6 +89,7 @@ function renderLessons() {
     `;
   }).join("");
   updateAllLivePreviews();
+  document.dispatchEvent(new CustomEvent("html-master:content-rendered"));
 }
 
 function updateLessonPreview(card) {

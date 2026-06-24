@@ -24,6 +24,7 @@ function defaultProgress() {
     completedLessons: [],
     quizScores: [],
     practiceHistory: [],
+    savedProjects: [],
     lastActive: new Date().toISOString()
   };
 }
@@ -122,6 +123,7 @@ export async function savePlaygroundProject(name, html, css, js) {
   } else {
     progress.savedProjects.push(project);
   }
+  progress.lastActive = new Date().toISOString();
   return saveProgress(progress);
 }
 
