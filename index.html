@@ -3,19 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="HTML Master Guide — a complete interactive HTML learning platform. Learn from zero, practice coding, take quizzes, and track your progress.">
-  <meta name="keywords" content="HTML, learn HTML, HTML tutorial, HTML quiz, HTML playground, web development">
+  <meta name="description" content="HTML Master Guide — a complete interactive web development learning platform. Learn HTML, CSS, and JavaScript from zero.">
+  <meta name="keywords" content="HTML, CSS, JavaScript, learn web development, tutorial, quiz, playground">
   <meta name="author" content="HTML Master Guide">
-  <meta property="og:title" content="HTML Master Guide — Interactive Learning Platform">
-  <meta property="og:description" content="Learn HTML from beginner to advanced with lessons, practice challenges, quizzes, and a live code playground.">
-  <meta property="og:type" content="website">
-  <title>HTML Master Guide — Interactive Learning Platform</title>
+  <title>HTML Master Guide — Interactive Web Dev Learning Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Splash Screen -->
+  <div id="splashScreen" class="splash-screen">
+    <div class="splash-content">
+      <div class="splash-text" id="splashText">
+        <span class="letter">S</span>
+        <span class="letter">A</span>
+        <span class="letter">A</span>
+        <span class="letter">D</span>
+      </div>
+      <div class="splash-loader"></div>
+    </div>
+  </div>
+
   <header class="site-header" id="top">
     <nav class="navbar" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="HTML Master Guide home">
@@ -24,17 +34,13 @@
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
       <div class="nav-links" id="navLinks">
-        <a href="#roadmap">Roadmap</a>
-        <a href="#guide">Guide</a>
+        <a href="#roadmap">HTML</a>
+        <a href="#css">CSS</a>
+        <a href="#javascript">JavaScript</a>
         <a href="#tags">Tags</a>
         <a href="#cheatsheet">Cheat Sheet</a>
         <a href="#playground">Playground</a>
-        <a href="#practice">Practice</a>
         <a href="#quiz">Quiz</a>
-        <a href="#projects">Projects</a>
-        <a href="#interview">Interview</a>
-        <a href="#tips">Tips</a>
-        <a href="#security">Security</a>
         <a href="#profile">Profile</a>
       </div>
       <button class="btn small auth-btn" id="authBtn" type="button">Sign In</button>
@@ -45,20 +51,21 @@
   </header>
 
   <main>
+    <!-- Hero Section -->
     <section class="hero">
       <div class="hero-grid">
         <div class="hero-copy reveal">
           <p class="eyebrow">Interactive learning platform</p>
-          <h1>HTML Master Guide</h1>
-          <p class="hero-intro">Learn HTML from zero to advanced. Complete lessons, practice coding, take quizzes, and track your progress — all in one place.</p>
+          <h1>Master the Web <br><span class="text-gradient">Step by Step</span></h1>
+          <p class="hero-intro">Learn HTML, CSS, and JavaScript from zero to advanced. Complete lessons, practice coding, and track your progress in one place.</p>
           <div class="hero-actions">
             <a class="btn primary" href="#roadmap">Start Learning</a>
             <a class="btn secondary" href="#playground">Open Playground</a>
-            <a class="btn ghost" href="#css">Start CSS</a>
+            <a class="btn ghost" href="#web-dev-roadmap">Dev Roadmap</a>
           </div>
           <div class="stats" aria-label="Platform highlights">
-            <div><strong>17</strong><span>Guided lessons</span></div>
-            <div><strong>79</strong><span>HTML tags</span></div>
+            <div><strong>30+</strong><span>Guided lessons</span></div>
+            <div><strong>150+</strong><span>Concepts</span></div>
             <div><strong>Live</strong><span>Code playground</span></div>
             <div><strong>Track</strong><span>Your progress</span></div>
           </div>
@@ -66,50 +73,59 @@
         <div class="hero-panel reveal">
           <div class="terminal">
             <div class="terminal-bar"><span></span><span></span><span></span></div>
-            <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-  &lt;head&gt;
-    &lt;title&gt;First Page&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Build the web&lt;/h1&gt;
-    &lt;p&gt;HTML gives content meaning.&lt;/p&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+            <pre><code>&lt;script&gt;
+  const dev = {
+    name: "Saad",
+    status: "Learning",
+    goal: "Master Web Dev"
+  };
+  console.log("Ready to build!");
+&lt;/script&gt;</code></pre>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section overview" aria-labelledby="overview-title">
+    <!-- Web Dev Roadmap Overview (New Creative Section) -->
+    <section class="section roadmap-overview" id="web-dev-roadmap" aria-labelledby="web-dev-title">
       <div class="section-heading reveal">
-        <p class="eyebrow">Start here</p>
-        <h2 id="overview-title">Understand the Web Foundation</h2>
+        <p class="eyebrow">The Big Picture</p>
+        <h2 id="web-dev-title">Web Development Roadmap</h2>
+        <p class="section-subtitle">A bird's-eye view of your journey from a beginner to a professional web developer.</p>
       </div>
-      <div class="feature-grid">
-        <article class="feature-card reveal">
-          <h3>What is HTML?</h3>
-          <p>HTML means HyperText Markup Language. It creates the structure of web pages using elements such as headings, paragraphs, links, images, forms, and sections.</p>
-        </article>
-        <article class="feature-card reveal">
-          <h3>Why HTML is important?</h3>
-          <p>Browsers, search engines, screen readers, CSS, JavaScript, and web security tools all depend on meaningful HTML. Strong HTML makes websites easier to build, style, test, and protect.</p>
-        </article>
-        <article class="feature-card reveal">
-          <h3>How websites work?</h3>
-          <p>A browser requests files from a server, reads HTML, downloads linked CSS and JavaScript, builds the page structure, applies design, and runs interactive behavior.</p>
-        </article>
-        <article class="feature-card reveal">
-          <h3>HTML learning roadmap</h3>
-          <p>Learn document structure, text tags, links, media, lists, tables, forms, semantic layout, accessibility, SEO basics, validation, and secure coding habits.</p>
-        </article>
+      <div class="roadmap-grid">
+        <div class="roadmap-card reveal">
+          <div class="roadmap-icon">1</div>
+          <h3>HTML Foundation</h3>
+          <p>Structure and content. The skeleton of every website.</p>
+          <a href="#roadmap" class="btn small ghost">Explore HTML</a>
+        </div>
+        <div class="roadmap-card reveal">
+          <div class="roadmap-icon">2</div>
+          <h3>CSS Styling</h3>
+          <p>Design and layout. Making your sites look professional.</p>
+          <a href="#css" class="btn small ghost">Explore CSS</a>
+        </div>
+        <div class="roadmap-card reveal">
+          <div class="roadmap-icon">3</div>
+          <h3>JavaScript Logic</h3>
+          <p>Interactivity and behavior. Bringing your pages to life.</p>
+          <a href="#javascript" class="btn small ghost">Explore JS</a>
+        </div>
+        <div class="roadmap-card reveal">
+          <div class="roadmap-icon">4</div>
+          <h3>Deployment</h3>
+          <p>GitHub, Hosting, and Domain. Sharing your work with the world.</p>
+          <a href="#security" class="btn small ghost">Learn Basics</a>
+        </div>
       </div>
     </section>
 
+    <!-- HTML Section (Existing but updated navigation) -->
     <section class="section roadmap-section" id="roadmap" aria-labelledby="roadmap-title">
       <div class="section-heading reveal">
-        <p class="eyebrow">Step by step</p>
-        <h2 id="roadmap-title">Learning Roadmap</h2>
+        <p class="eyebrow">Step 1: HTML</p>
+        <h2 id="roadmap-title">HTML Learning Path</h2>
         <p class="section-subtitle">Follow the path from beginner to advanced. Complete each lesson and practice challenge to build real skills.</p>
       </div>
       <div class="progress-tracker reveal">
@@ -119,120 +135,106 @@
       <div id="roadmapContent"></div>
     </section>
 
-    <section class="section guide" id="guide" aria-labelledby="guide-title">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Complete guide</p>
-        <h2 id="guide-title">HTML Documentation</h2>
-      </div>
-      <div class="guide-layout">
-        <article class="doc-block reveal">
-          <h3>HTML Introduction</h3>
-          <p>HTML is a markup language, not a programming language. It tells the browser what content exists and what role each part plays.</p>
-          <ul>
-            <li><strong>What is HTML:</strong> A standard language for structuring web content.</li>
-            <li><strong>History:</strong> Tim Berners-Lee introduced early HTML in the 1990s to share linked documents on the World Wide Web.</li>
-            <li><strong>Versions:</strong> HTML 1.0, HTML 2.0, HTML 3.2, HTML 4.01, XHTML, HTML5, and the modern HTML Living Standard.</li>
-            <li><strong>With CSS and JavaScript:</strong> HTML structures content, CSS designs it, and JavaScript adds behavior.</li>
-          </ul>
-        </article>
-        <article class="roadmap reveal">
-          <h3>Roadmap</h3>
-          <ol>
-            <li>Build a valid page with doctype, html, head, and body.</li>
-            <li>Use headings, paragraphs, links, images, and lists.</li>
-            <li>Create tables and forms with proper labels.</li>
-            <li>Use semantic tags for clean page layout.</li>
-            <li>Practice accessibility, SEO, and validation.</li>
-            <li>Connect HTML with CSS, JavaScript, APIs, and hosting.</li>
-          </ol>
-        </article>
-      </div>
-    </section>
-
+    <!-- CSS Section (Enhanced) -->
     <section class="section css-section" id="css" aria-labelledby="css-title">
       <div class="section-heading reveal">
-        <p class="eyebrow">CSS Learning Section</p>
-        <h2 id="css-title">Learn CSS step by step</h2>
-        <p class="section-subtitle">Follow the roadmap, edit live lesson examples, search CSS properties, review the cheat sheet, take CSS quizzes, and build focused mini projects.</p>
+        <p class="eyebrow">Step 2: CSS</p>
+        <h2 id="css-title">CSS Mastery Guide</h2>
+        <p class="section-subtitle">Learn how to style, layout, and animate your web pages with precision.</p>
       </div>
-      <div class="progress-tracker reveal">
-        <div class="progress-bar-wrap"><div class="progress-bar" id="cssProgressBar" style="width: 0%"></div></div>
-        <p id="cssProgressText">0 of 9 CSS lessons complete (0%)</p>
+      <div class="css-learning-grid">
+        <div class="css-sidebar reveal">
+          <div class="roadmap-card-mini">
+            <h3>CSS Roadmap</h3>
+            <ol class="css-roadmap-list" id="cssRoadmapContent"></ol>
+          </div>
+          <div class="doc-block-mini">
+            <h3>How to learn CSS</h3>
+            <p>Read a topic, edit the live CSS, mark it complete, then build the matching mini project. Practicality is key.</p>
+          </div>
+        </div>
+        <div class="css-main-content">
+          <div class="progress-tracker reveal">
+            <div class="progress-bar-wrap"><div class="progress-bar" id="cssProgressBar" style="width: 0%"></div></div>
+            <p id="cssProgressText">0 of 9 CSS lessons complete (0%)</p>
+          </div>
+          <div class="section-heading compact-heading reveal"><h2>CSS Lessons</h2></div>
+          <div class="lesson-grid" id="cssLessonsContent"></div>
+        </div>
       </div>
-      <div class="guide-layout">
-        <article class="roadmap reveal"><h3>CSS Roadmap</h3><ol class="css-roadmap-list" id="cssRoadmapContent"></ol></article>
-        <article class="doc-block reveal"><h3>How to learn CSS</h3><p>Read one topic, edit the live CSS, mark it complete, then build the matching mini project. This keeps CSS practical instead of memorized.</p></article>
-      </div>
-      <div class="section-heading compact-heading reveal"><p class="eyebrow">Interactive lessons</p><h2>CSS Lessons with Live Preview</h2></div>
-      <div class="lesson-grid" id="cssLessonsContent"></div>
-      <div class="section-heading compact-heading reveal"><p class="eyebrow">Property reference</p><h2>Search CSS Properties</h2></div>
-      <div class="search-wrap reveal"><label for="cssReferenceSearch">Search CSS property</label><input type="search" id="cssReferenceSearch" placeholder="Try: color, flex, grid, transition"></div>
-      <div class="reference-table-wrap reveal"><table class="reference-table"><thead><tr><th>Property</th><th>Syntax</th><th>Values</th><th>Browser support</th><th>Example</th></tr></thead><tbody id="cssReferenceBody"></tbody></table></div>
-      <div class="section-heading compact-heading reveal"><p class="eyebrow">Cheat sheet</p><h2>CSS Quick Reference</h2></div>
+
+      <div class="section-heading compact-heading reveal"><p class="eyebrow">Reference</p><h2>CSS Properties</h2></div>
+      <div class="search-wrap reveal"><input type="search" id="cssReferenceSearch" placeholder="Search property: color, flex, grid..."></div>
+      <div class="reference-table-wrap reveal"><table class="reference-table"><thead><tr><th>Property</th><th>Syntax</th><th>Values</th><th>Support</th><th>Example</th></tr></thead><tbody id="cssReferenceBody"></tbody></table></div>
+      
+      <div class="section-heading compact-heading reveal"><p class="eyebrow">Quick Help</p><h2>CSS Cheat Sheet</h2></div>
       <div class="cheat-grid" id="cssCheatSheetContent"></div>
-      <div class="section-heading compact-heading reveal"><p class="eyebrow">CSS quiz</p><h2>Beginner to Advanced CSS Questions</h2></div>
+      
+      <div class="section-heading compact-heading reveal"><p class="eyebrow">Challenge</p><h2>CSS Quiz</h2></div>
       <div class="quiz-level-tabs reveal" id="cssQuizLevelTabs"></div>
       <div class="quiz-box reveal" id="cssQuizBox"><div class="quiz-top"><span id="cssQuestionCount"></span><span id="cssScoreText">Score: 0</span></div><h3 id="cssQuizQuestion"></h3><div id="cssQuizOptions" class="quiz-options"></div><p id="cssQuizExplanation" class="quiz-explanation"></p><button class="btn primary" id="cssNextQuestion" type="button">Next Question</button></div>
       <div id="cssQuizResult" hidden></div>
-      <div class="section-heading compact-heading reveal"><p class="eyebrow">CSS mini projects</p><h2>Build UI Pieces</h2></div>
+      
+      <div class="section-heading compact-heading reveal"><p class="eyebrow">Build</p><h2>CSS Mini Projects</h2></div>
       <div class="projects-grid" id="cssProjectsContent"></div>
     </section>
 
-    <section class="section tags-section" id="tags" aria-labelledby="tags-title">
+    <!-- JavaScript Section (New) -->
+    <section class="section js-section" id="javascript" aria-labelledby="js-title">
       <div class="section-heading reveal">
-        <p class="eyebrow">Tag reference</p>
-        <h2 id="tags-title">HTML Tags Reference</h2>
-        <p class="section-subtitle">Search any tag and study syntax, examples, output, usage, and common mistakes.</p>
+        <p class="eyebrow">Step 3: JavaScript</p>
+        <h2 id="js-title">JavaScript Essentials</h2>
+        <p class="section-subtitle">Bring your websites to life with logic, interactivity, and dynamic data.</p>
       </div>
-      <div class="search-wrap reveal">
-        <label for="tagSearch">Search HTML tag</label>
-        <input type="search" id="tagSearch" placeholder="Try: form, video, meta, article">
+      
+      <div class="progress-tracker reveal">
+        <div class="progress-bar-wrap"><div class="progress-bar" id="jsProgressBar" style="width: 0%"></div></div>
+        <p id="jsProgressText">0 of 3 JS lessons complete (0%)</p>
       </div>
-      <div class="tag-list" id="tagList" aria-live="polite"></div>
+
+      <div class="guide-layout">
+        <article class="roadmap reveal"><h3>JS Roadmap</h3><ol class="css-roadmap-list" id="jsRoadmapContent"></ol></article>
+        <article class="doc-block reveal"><h3>How to learn JS</h3><p>Focus on variables, functions, and DOM manipulation first. Practice by making small interactive elements in the playground.</p></article>
+      </div>
+
+      <div class="section-heading compact-heading reveal"><p class="eyebrow">Interactive lessons</p><h2>JS Lessons</h2></div>
+      <div class="lesson-grid" id="jsLessonsContent"></div>
+
+      <div class="section-heading compact-heading reveal"><p class="eyebrow">Reference</p><h2>JS Concepts</h2></div>
+      <div class="search-wrap reveal"><input type="search" id="jsReferenceSearch" placeholder="Search concept: console, const, fetch..."></div>
+      <div class="reference-table-wrap reveal"><table class="reference-table"><thead><tr><th>Concept</th><th>Syntax</th><th>Usage</th><th>Support</th><th>Example</th></tr></thead><tbody id="jsReferenceBody"></tbody></table></div>
+
+      <div class="section-heading compact-heading reveal"><p class="eyebrow">Quick Help</p><h2>JS Cheat Sheet</h2></div>
+      <div class="cheat-grid" id="jsCheatSheetContent"></div>
+
+      <div class="section-heading compact-heading reveal"><p class="eyebrow">Challenge</p><h2>JS Quiz</h2></div>
+      <div class="quiz-level-tabs reveal" id="jsQuizLevelTabs"></div>
+      <div class="quiz-box reveal" id="jsQuizBox"><div class="quiz-top"><span id="jsQuestionCount"></span><span id="jsScoreText">Score: 0</span></div><h3 id="jsQuizQuestion"></h3><div id="jsQuizOptions" class="quiz-options"></div><p id="jsQuizExplanation" class="quiz-explanation"></p><button class="btn primary" id="jsNextQuestion" type="button">Next Question</button></div>
+      <div id="jsQuizResult" hidden></div>
+
+      <div class="section-heading compact-heading reveal"><p class="eyebrow">Build</p><h2>JS Mini Projects</h2></div>
+      <div class="projects-grid" id="jsProjectsContent"></div>
     </section>
 
-    <section class="section cheatsheet-section" id="cheatsheet" aria-labelledby="cheatsheet-title">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Quick reference</p>
-        <h2 id="cheatsheet-title">HTML Cheat Sheet</h2>
-        <p class="section-subtitle">All essential tags at a glance. Perfect for quick lookups while you code.</p>
-      </div>
-      <div class="cheat-grid" id="cheatSheetContent"></div>
-    </section>
-
-    <section class="section mistakes-section" id="mistakes" aria-labelledby="mistakes-title">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Avoid pitfalls</p>
-        <h2 id="mistakes-title">Common HTML Mistakes</h2>
-        <p class="section-subtitle">Learn from the most frequent errors beginners make — and how to fix them.</p>
-      </div>
-      <div class="mistakes-grid" id="mistakesContent"></div>
-    </section>
-
+    <!-- Playground (Existing) -->
     <section class="section playground" id="playground" aria-labelledby="playground-title">
       <div class="section-heading reveal">
         <p class="eyebrow">Advanced code lab</p>
-        <h2 id="playground-title">HTML, CSS &amp; JavaScript Playground</h2>
+        <h2 id="playground-title">Web Dev Playground</h2>
         <p class="section-subtitle">Write HTML, CSS, and JavaScript together and see live results instantly.</p>
       </div>
       <div class="playground-advanced reveal">
         <div class="editor-tabs">
           <div class="editor-panel">
-            <div class="panel-title">
-              <span>HTML Editor</span>
-            </div>
+            <div class="panel-title"><span>HTML</span></div>
             <textarea id="htmlEditor" spellcheck="false" aria-label="HTML editor"></textarea>
           </div>
           <div class="editor-panel">
-            <div class="panel-title">
-              <span>CSS Editor</span>
-            </div>
+            <div class="panel-title"><span>CSS</span></div>
             <textarea id="cssEditor" spellcheck="false" aria-label="CSS editor"></textarea>
           </div>
           <div class="editor-panel">
-            <div class="panel-title">
-              <span>JavaScript Editor</span>
-            </div>
+            <div class="panel-title"><span>JS</span></div>
             <textarea id="jsEditor" spellcheck="false" aria-label="JavaScript editor"></textarea>
           </div>
         </div>
@@ -251,110 +253,33 @@
       </div>
     </section>
 
-    <section class="section practice" id="practice" aria-labelledby="practice-title">
+    <!-- Reference Sections (Existing) -->
+    <section class="section tags-section" id="tags" aria-labelledby="tags-title">
       <div class="section-heading reveal">
-        <p class="eyebrow">Practice path</p>
-        <h2 id="practice-title">Exercises and Projects</h2>
-        <p class="section-subtitle">Build real projects step by step. Each exercise uses skills from the learning roadmap.</p>
+        <p class="eyebrow">Reference</p>
+        <h2 id="tags-title">HTML Tags</h2>
       </div>
-      <div class="level-grid">
-        <article class="level-card reveal">
-          <h3>Beginner</h3>
-          <ul>
-            <li>Create a personal profile page.</li>
-            <li>Add headings, paragraphs, links, and images.</li>
-            <li>Build a grocery list with ordered and unordered lists.</li>
-            <li>Make a simple contact table.</li>
-          </ul>
-        </article>
-        <article class="level-card reveal">
-          <h3>Intermediate</h3>
-          <ul>
-            <li>Create a registration form with labels and validation.</li>
-            <li>Build a blog article using semantic tags.</li>
-            <li>Add video, audio, iframe, and figure elements.</li>
-            <li>Improve accessibility with alt text and landmarks.</li>
-          </ul>
-        </article>
-        <article class="level-card reveal">
-          <h3>Advanced</h3>
-          <ul>
-            <li>Build a documentation website like this project.</li>
-            <li>Create an HTML-only portfolio structure.</li>
-            <li>Design a secure login form prototype.</li>
-            <li>Validate pages and fix semantic problems.</li>
-          </ul>
-        </article>
-      </div>
+      <div class="search-wrap reveal"><input type="search" id="tagSearch" placeholder="Search tags..."></div>
+      <div class="tag-list" id="tagList"></div>
     </section>
 
-    <section class="section projects-section" id="projects" aria-labelledby="projects-title">
+    <section class="section cheatsheet-section" id="cheatsheet" aria-labelledby="cheatsheet-title">
       <div class="section-heading reveal">
-        <p class="eyebrow">Build real things</p>
-        <h2 id="projects-title">Mini Projects</h2>
-        <p class="section-subtitle">Hands-on projects to apply what you learn. Start small and level up.</p>
+        <p class="eyebrow">Reference</p>
+        <h2 id="cheatsheet-title">HTML Cheat Sheet</h2>
       </div>
-      <div class="projects-grid" id="projectsContent"></div>
+      <div class="cheat-grid" id="cheatSheetContent"></div>
     </section>
 
-    <section class="section quiz" id="quiz" aria-labelledby="quiz-title">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Check knowledge</p>
-        <h2 id="quiz-title">HTML Quiz System</h2>
-        <p class="section-subtitle">Test yourself with beginner, intermediate, and advanced quizzes. Scores are saved to your profile.</p>
-      </div>
-      <div class="quiz-level-tabs reveal" id="quizLevelTabs"></div>
-      <div class="quiz-box reveal" id="quizBox">
-        <div class="quiz-top">
-          <span id="questionCount"></span>
-          <span id="scoreText">Score: 0</span>
-        </div>
-        <h3 id="quizQuestion"></h3>
-        <div id="quizOptions" class="quiz-options"></div>
-        <p id="quizExplanation" class="quiz-explanation"></p>
-        <button class="btn primary" id="nextQuestion" type="button">Next Question</button>
-      </div>
-      <div id="quizResult" hidden></div>
-    </section>
-
-    <section class="section interview-section" id="interview" aria-labelledby="interview-title">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Career ready</p>
-        <h2 id="interview-title">HTML Interview Questions</h2>
-        <p class="section-subtitle">Common questions asked in web developer interviews — with clear answers.</p>
-      </div>
-      <div class="interview-controls reveal">
-        <div class="difficulty-filters" id="interviewDifficultyFilters" aria-label="Filter interview questions by difficulty">
-          <button class="quiz-tab active" data-difficulty="all" type="button">All</button>
-          <button class="quiz-tab" data-difficulty="beginner" type="button">Beginner</button>
-          <button class="quiz-tab" data-difficulty="intermediate" type="button">Intermediate</button>
-          <button class="quiz-tab" data-difficulty="advanced" type="button">Advanced</button>
-        </div>
-        <label class="sr-only" for="interviewSearch">Search interview questions</label>
-        <input type="search" id="interviewSearch" placeholder="Search questions or answers">
-      </div>
-      <div class="interview-list" id="interviewContent"></div>
-    </section>
-
-    <section class="section tips-section" id="tips" aria-labelledby="tips-title">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Pro advice</p>
-        <h2 id="tips-title">Developer Tips</h2>
-        <p class="section-subtitle">Practical habits that help you learn faster and write better HTML.</p>
-      </div>
-      <div class="tips-grid" id="tipsContent"></div>
-    </section>
-
+    <!-- Profile Section (Existing) -->
     <section class="section profile-section" id="profile" aria-labelledby="profile-title">
       <div class="section-heading reveal">
         <p class="eyebrow">Your journey</p>
         <h2 id="profile-title">Learning Profile</h2>
-        <p class="section-subtitle">Track completed lessons, quiz scores, and practice history.</p>
       </div>
       <div class="profile-guest reveal" id="profileGuest">
         <div class="guest-card">
           <h3>Sign in to track your progress</h3>
-          <p>Create a free account to save completed lessons, quiz scores, and playground projects across devices.</p>
           <button class="btn primary" id="profileLoginBtn" type="button" onclick="document.getElementById('authBtn').click()">Sign In / Sign Up</button>
         </div>
       </div>
@@ -364,73 +289,55 @@
       <div id="profileContent" hidden></div>
     </section>
 
+    <!-- Security Section (Existing) -->
     <section class="section security" id="security" aria-labelledby="security-title">
       <div class="section-heading reveal">
-        <p class="eyebrow">Ethical hacker friendly</p>
-        <h2 id="security-title">HTML and Web Security Basics</h2>
+        <p class="eyebrow">Security</p>
+        <h2 id="security-title">Web Security Basics</h2>
       </div>
       <div class="security-grid">
         <article class="security-card reveal">
-          <h3>Why developers should understand HTML security</h3>
-          <p>Bad HTML structure can create weak forms, unsafe links, confusing permissions, and poor validation. Security starts with knowing how browsers interpret documents.</p>
+          <h3>HTML Security</h3>
+          <p>Learn how bad HTML structure can create vulnerabilities like XSS.</p>
         </article>
         <article class="security-card reveal">
-          <h3>How HTML helps cybersecurity learning</h3>
-          <p>HTML knowledge helps you inspect page structure, understand forms, read browser developer tools, recognize hidden fields, and communicate clearly with developers during ethical testing.</p>
-        </article>
-        <article class="security-card reveal">
-          <h3>Basic safe concepts</h3>
-          <p>Use HTTPS, validate user input on the server, escape untrusted output, avoid inline sensitive data, write clear forms, use safe link attributes, and respect authorization boundaries.</p>
+          <h3>Safe Coding</h3>
+          <p>Best practices for writing secure web applications.</p>
         </article>
       </div>
-      <p class="notice reveal">This section is for legal education and defensive learning only. It does not include illegal hacking instructions.</p>
     </section>
   </main>
 
   <footer class="footer">
-    <p>HTML Master Guide — an interactive learning platform for aspiring web developers.</p>
+    <p>HTML Master Guide — an interactive learning platform by Saad.</p>
     <div class="footer-links">
-      <a href="https://github.com/mdsaad01755-coder/html-master-guide" target="_blank" rel="noopener">GitHub repo</a>
-      <span class="html-badge">Made with HTML</span>
+      <a href="https://github.com/mdsaad01755-coder/html-master-guide" target="_blank" rel="noopener">GitHub</a>
+      <span class="html-badge">Made with ❤️</span>
       <a href="#top">Back to top</a>
     </div>
   </footer>
 
-  <!-- Auth Modal -->
+  <!-- Auth Modal (Existing) -->
   <div class="modal-overlay" id="authModal" aria-hidden="true" role="dialog" aria-labelledby="authModalTitle">
     <div class="modal">
       <button class="modal-close" data-close-modal="authModal" aria-label="Close" type="button">×</button>
       <h2 id="authModalTitle">Welcome back</h2>
-      <p class="modal-sub">Sign in to save your learning progress.</p>
-      <div class="firebase-notice" id="firebaseNotice">
-        <strong>Firebase not configured.</strong> Add your project credentials in <code>js/firebase-config.js</code> to enable cloud sync. Progress is saved locally until then.
-      </div>
       <div class="auth-tabs">
         <button class="auth-tab active" id="tabLogin" type="button">Sign In</button>
         <button class="auth-tab" id="tabSignup" type="button">Sign Up</button>
       </div>
       <form id="authForm" novalidate>
-        <div class="form-field" id="authNameField" hidden>
-          <label for="authName">Full name</label>
-          <input type="text" id="authName" placeholder="Your name" autocomplete="name">
-        </div>
-        <div class="form-field">
-          <label for="authEmail">Email</label>
-          <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email" required>
-        </div>
-        <div class="form-field">
-          <label for="authPassword">Password</label>
-          <input type="password" id="authPassword" placeholder="Your password" autocomplete="current-password" required>
-        </div>
-        <p class="auth-error" id="authError" aria-live="polite"></p>
+        <div class="form-field" id="authNameField" hidden><label for="authName">Full name</label><input type="text" id="authName" placeholder="Your name"></div>
+        <div class="form-field"><label for="authEmail">Email</label><input type="email" id="authEmail" placeholder="you@example.com" required></div>
+        <div class="form-field"><label for="authPassword">Password</label><input type="password" id="authPassword" placeholder="Your password" required></div>
+        <p class="auth-error" id="authError"></p>
         <button class="btn primary full" id="authSubmit" type="submit">Sign In</button>
       </form>
       <div class="auth-divider"><span>or</span></div>
-      <button class="btn google-btn full" id="googleLoginBtn" type="button">
-        <span class="google-icon">G</span> Continue with Google
-      </button>
+      <button class="btn google-btn full" id="googleLoginBtn" type="button"><span class="google-icon">G</span> Continue with Google</button>
     </div>
   </div>
 
-  <script type="module" src="js/app.js"></script></body>
+  <script type="module" src="js/app.js"></script>
+</body>
 </html>

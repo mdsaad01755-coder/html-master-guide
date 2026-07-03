@@ -124,3 +124,22 @@ export function initModals() {
     });
   });
 }
+
+export function initSplashScreen() {
+  const splash = document.getElementById('splashScreen');
+  if (!splash) return;
+
+  // Only show splash screen once per session
+  if (sessionStorage.getItem('splashPlayed')) {
+    splash.style.display = 'none';
+    return;
+  }
+
+  setTimeout(() => {
+    splash.classList.add('fade-out');
+    sessionStorage.setItem('splashPlayed', 'true');
+    setTimeout(() => {
+      splash.style.display = 'none';
+    }, 600);
+  }, 2500);
+}
