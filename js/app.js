@@ -7,6 +7,7 @@ import { initContent } from "./modules/content.js";
 import { initAuthUI } from "./modules/auth-ui.js";
 import { initCssLearning } from "./modules/css-learning.js";
 import { initJsLearning } from "./modules/js-learning.js";
+import { initStatCounter } from "./modules/stat-counter.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initSplashScreen();
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initModals();
   initAuthUI();
+  initStatCounter();
   initTags();
   initLessons();
   initPlayground();
