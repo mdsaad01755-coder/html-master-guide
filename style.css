@@ -243,8 +243,11 @@ select {
   padding: 58px 0 42px;
   position: relative;
   background: 
+    radial-gradient(circle at 20% 30%, rgba(45, 212, 191, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.06) 0%, transparent 40%),
     linear-gradient(135deg, rgba(45, 212, 191, 0.03), transparent 50%),
     linear-gradient(45deg, rgba(56, 189, 248, 0.02), transparent 50%);
+  overflow: hidden;
 }
 
 .hero::before {
@@ -351,10 +354,24 @@ h3 {
   color: #021511;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   font-weight: 800;
+  box-shadow: 0 4px 15px rgba(45, 212, 191, 0.25);
+}
+
+.btn.primary:hover {
+  box-shadow: 0 12px 35px rgba(45, 212, 191, 0.4);
+  transform: translateY(-4px);
 }
 
 .btn.secondary {
   background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn.secondary:hover {
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  border-color: var(--accent-2);
+  color: var(--accent-2);
 }
 
 .btn.small {
@@ -445,10 +462,16 @@ h3 {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: #0a0e11;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(45, 212, 191, 0.05);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.code-editor:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), 0 0 50px rgba(45, 212, 191, 0.1);
 }
 
 .editor-header {
@@ -545,9 +568,17 @@ h3 {
 .hero-headline {
   font-size: clamp(2.8rem, 8vw, 6rem);
   font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   margin-bottom: 16px;
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.hero-headline .text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(45, 212, 191, 0.25));
 }
 
 .hero-intro {
