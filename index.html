@@ -267,9 +267,18 @@
             <button class="btn small secondary" id="saveProject" type="button">Save Project</button>
             <span class="shortcut-hint">Ctrl+Enter runs code</span>
           </div>
-          <div class="preview-panel">
-            <div class="panel-title"><span>Live Preview</span></div>
-            <iframe id="previewFrame" title="HTML preview sandbox" sandbox="allow-scripts allow-same-origin"></iframe>
+          <div class="playground-output">
+            <div class="preview-panel">
+              <div class="panel-title"><span>Live Preview</span></div>
+              <iframe id="previewFrame" title="HTML preview sandbox" sandbox="allow-scripts allow-same-origin"></iframe>
+            </div>
+            <div class="console-panel">
+              <div class="panel-title">
+                <span>Console Output</span>
+                <button class="btn small ghost" id="clearConsole" type="button" title="Clear console">Clear</button>
+              </div>
+              <div id="consoleOutput" class="console-output"></div>
+            </div>
           </div>
         </div>
       </div>

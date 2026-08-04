@@ -8,6 +8,7 @@ import { initAuthUI } from "./modules/auth-ui.js";
 import { initCssLearning } from "./modules/css-learning.js";
 import { initJsLearning } from "./modules/js-learning.js";
 import { initStatCounter } from "./modules/stat-counter.js";
+import { initVirtualConsole } from "./modules/virtual-console.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initSplashScreen();
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initModals();
   initAuthUI();
   initStatCounter();
+  initVirtualConsole();
   initTags();
   initLessons();
   initPlayground();

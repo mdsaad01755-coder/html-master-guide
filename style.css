@@ -1255,6 +1255,61 @@ roadmap-step {
   font-size: 0.8rem;
 }
 
+.playground-output {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.console-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.console-output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  background: #0a0e11;
+  color: #d8fff0;
+  max-height: 300px;
+}
+
+.console-line {
+  margin-bottom: 6px;
+  padding: 4px 8px;
+  border-left: 2px solid transparent;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.console-line.console-log {
+  border-left-color: var(--accent);
+  color: #d8fff0;
+}
+
+.console-line.console-error {
+  border-left-color: var(--danger);
+  color: var(--danger);
+}
+
+.console-line.console-warn {
+  border-left-color: var(--warning);
+  color: var(--warning);
+}
+
+.console-line.console-info {
+  border-left-color: var(--accent-2);
+  color: var(--accent-2);
+}
+
 #previewFrame {
   width: 100%;
   height: 400px;
@@ -1998,6 +2053,12 @@ roadmap-step {
     grid-template-columns: 1fr;
   }
 }
+
+
+
+  .playground-output {
+    grid-template-columns: 1fr;
+  }
 
 @media (max-width: 920px) {
   .menu-toggle {

@@ -43,6 +43,39 @@ export const JS_LESSONS = [
     js: "const btn = document.getElementById('change');\nbtn.onclick = () => {\n  const title = document.getElementById('title');\n  title.innerText = 'New Title';\n  title.style.color = '#45f5a7';\n};",
     goal: "Change the text and color of the heading.",
     patterns: ["getElementById", "style.color", "innerText"]
+  },
+  {
+    id: "js-arrays",
+    title: "Arrays & Objects",
+    summary: "Work with collections of data using arrays and key-value pairs with objects.",
+    explanation: "Arrays store multiple values in a single variable. Objects store data as key-value pairs. Both are essential for organizing and managing complex data.",
+    code: "const fruits = ['Apple', 'Banana', 'Orange'];\nconst user = { name: 'Saad', age: 25, city: 'NYC' };\nconsole.log(fruits[0]);\nconsole.log(user.name);",
+    html: "<ul id=\"list\"></ul>\n<div id=\"info\"></div>",
+    js: "const items = ['Learn', 'Practice', 'Build'];\nconst list = document.getElementById('list');\nitems.forEach(item => {\n  const li = document.createElement('li');\n  li.textContent = item;\n  list.appendChild(li);\n});",
+    goal: "Create a list by looping through an array.",
+    patterns: ["forEach", "createElement", "appendChild"]
+  },
+  {
+    id: "js-events",
+    title: "Events & Event Listeners",
+    summary: "Respond to user interactions like clicks, typing, and form submissions.",
+    explanation: "Events are actions or occurrences that happen in the browser. You can listen for these events and run code in response using addEventListener.",
+    code: "const btn = document.getElementById('myBtn');\nbtn.addEventListener('click', () => {\n  console.log('Button clicked!');\n});",
+    html: "<input type=\"text\" id=\"input\" placeholder=\"Type something...\">\n<p id=\"display\"></p>",
+    js: "const input = document.getElementById('input');\nconst display = document.getElementById('display');\ninput.addEventListener('input', (e) => {\n  display.textContent = `You typed: ${e.target.value}`;\n});",
+    goal: "Type in the input and see the text appear below in real-time.",
+    patterns: ["addEventListener", "event.target", "input event"]
+  },
+  {
+    id: "js-async",
+    title: "Asynchronous JavaScript",
+    summary: "Handle operations that take time, like fetching data from APIs.",
+    explanation: "Asynchronous code allows your program to continue running while waiting for operations to complete. Use async/await for cleaner, more readable code.",
+    code: "async function fetchData() {\n  const response = await fetch('https://api.example.com/data');\n  const data = await response.json();\n  console.log(data);\n}",
+    html: "<button id=\"fetchBtn\">Fetch Data</button>\n<div id=\"result\"></div>",
+    js: "document.getElementById('fetchBtn').addEventListener('click', async () => {\n  const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');\n  const data = await response.json();\n  document.getElementById('result').innerHTML = `<p>${data.title}</p>`;\n});",
+    goal: "Click the button to fetch and display data from an API.",
+    patterns: ["async", "await", "fetch"]
   }
 ];
 
@@ -77,10 +110,17 @@ export const JS_QUIZ_LEVELS = [
 export const JS_QUIZ_BANK = {
   "js-beginner": [
     { question: "Which keyword is used to declare a constant?", options: ["var", "let", "const", "constant"], answer: 2, explanation: "const is used for values that should not be reassigned." },
-    { question: "How do you select an element with ID 'app'?", options: [".getElementById('app')", "#getElementById('app')", "getElementById('app')", "document.getElementById('app')"], answer: 3, explanation: "document.getElementById is the standard way to select by ID." }
+    { question: "How do you select an element with ID 'app'?", options: [".getElementById('app')", "#getElementById('app')", "getElementById('app')", "document.getElementById('app')"], answer: 3, explanation: "document.getElementById is the standard way to select by ID." },
+    { question: "What is the output of console.log(typeof 'hello')?", options: ["string", "text", "String", "object"], answer: 0, explanation: "The typeof operator returns 'string' for text values." },
+    { question: "How do you add an element to the end of an array?", options: ["push()", "add()", "append()", "insert()"], answer: 0, explanation: "The push() method adds elements to the end of an array." },
+    { question: "Which method is used to execute a function after a delay?", options: ["wait()", "delay()", "setTimeout()", "pause()"], answer: 2, explanation: "setTimeout() executes code after a specified number of milliseconds." }
   ],
   "js-advanced": [
-    { question: "What does 'this' refer to in a global context?", options: ["The function", "The window object", "Undefined", "Null"], answer: 1, explanation: "In a browser, 'this' in the global scope refers to the window object." }
+    { question: "What does 'this' refer to in a global context?", options: ["The function", "The window object", "Undefined", "Null"], answer: 1, explanation: "In a browser, 'this' in the global scope refers to the window object." },
+    { question: "What is the difference between == and ===?", options: ["No difference", "== checks type, === doesn't", "=== checks type, == doesn't", "=== is faster"], answer: 2, explanation: "=== is strict equality (checks both value and type), while == is loose equality (type coercion)." },
+    { question: "How do you create a Promise?", options: ["new Promise()", "Promise()", "createPromise()", "promise()"], answer: 0, explanation: "Promises are created using the 'new' keyword: new Promise((resolve, reject) => {})." },
+    { question: "What is the purpose of async/await?", options: ["To make code faster", "To handle asynchronous operations more readably", "To replace callbacks", "To create loops"], answer: 1, explanation: "async/await provides a cleaner way to handle asynchronous code compared to .then() chains." },
+    { question: "What does Array.map() do?", options: ["Finds elements", "Transforms each element and returns a new array", "Filters elements", "Sorts elements"], answer: 1, explanation: "map() creates a new array by applying a function to each element of the original array." }
   ]
 };
 
