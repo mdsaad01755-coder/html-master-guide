@@ -7,7 +7,7 @@ import {
   CSS_QUIZ_BANK,
   CSS_PROJECTS
 } from "../data/css-content.js";
-import { escapeHtml, showToast } from "./ui.js";
+import { escapeHtml, showToast, renderHighlightedCode } from "./ui.js";
 import { loadProgress, markLessonComplete, savePracticeAttempt, saveQuizScore } from "./progress.js";
 
 let completedSet = new Set();
@@ -51,17 +51,17 @@ function renderLessons() {
   el.innerHTML = CSS_LESSONS.map((lesson, index) => {
     const isComplete = completedSet.has(lesson.id);
     return `
-      <article class="lesson-card css-lesson-card reveal visible" data-css-lesson="${lesson.id}">
+      <article class="lesson-card css-lesson-card ${isComplete ? "complete" : ""} reveal visible" data-css-lesson="${lesson.id}" id="css-lesson-${lesson.id}">
         <div class="lesson-header">
           <span class="lesson-number">CSS Lesson ${index + 1}</span>
-          <span class="lesson-status ${isComplete ? "complete" : ""}">${isComplete ? "Completed" : "Not started"}</span>
+          <span class="lesson-status ${isComplete ? "complete" : ""}">${isComplete ? "Completed" : "In Progress"}</span>
         </div>
         <h3>${escapeHtml(lesson.title)}</h3>
         <p class="lesson-summary">${escapeHtml(lesson.summary)}</p>
         <p class="muted">${escapeHtml(lesson.explanation)}</p>
         <div class="tag-section">
           <p class="tag-label">Example</p>
-          <pre class="code-block"><code>${escapeHtml(lesson.code)}</code></pre>
+          <pre class="code-block"><code>${renderHighlightedCode(lesson.code, "css")}</code></pre>
         </div>
         <div class="css-live-lab">
           <div class="editor-panel">
@@ -109,12 +109,25 @@ function checkLesson(card, lesson) {
 }
 
 function updateCssProgressBar(progress) {
-  const bar = document.querySelector("#cssProgressBar");
-  const text = document.querySelector("#cssProgressText");
-  const completed = CSS_LESSONS.filter(lesson => progress.completedLessons?.includes(lesson.id)).length;
-  const pct = Math.round((completed / CSS_LESSONS.length) * 100);
-  if (bar) bar.style.width = `${pct}%`;
-  if (text) text.textContent = `${completed} of ${CSS_LESSONS.length} CSS lessons complete (${pct}%)`;
+  const container = document.querySelector(".css-main-content .progress-tracker");
+  if (!container) return;
+  const completed = CSS_LESSONS.filter(lesson => (progress.completedLessons || []).includes(lesson.id)).length;
+  const total = CSS_LESSONS.length;
+  const pct = Math.round((completed / total) * 100);
+  const completedIds = new Set(progress.completedLessons || []);
+  container.innerHTML = `
+    <div class="progress-info">
+      <span class="progress-count">${completed} of ${total} CSS lessons complete</span>
+      <span class="progress-percentage">${pct}%</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" style="width: ${pct}%"></div></div>
+    <nav class="sticky-nav" aria-label="CSS lesson navigation">
+      ${CSS_LESSONS.map((lesson, index) => {
+        const done = completedIds.has(lesson.id);
+        return `<a class="sticky-nav-item ${done ? "complete" : ""}" href="#css-lesson-${lesson.id}" aria-label="CSS lesson ${index + 1}${done ? ", complete" : ""}">${done ? "✓" : index + 1}</a>`;
+      }).join("")}
+    </nav>
+  `;
 }
 
 async function refreshCssProgress() {

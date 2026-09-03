@@ -668,10 +668,25 @@ pre {
 /* Progress tracker */
 .progress-tracker {
   margin-bottom: var(--sp-8);
-  padding: var(--sp-5);
+  padding: var(--sp-6);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--surface-2);
+  box-shadow: var(--shadow-md);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.progress-percentage {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 800;
+  color: var(--accent);
+  font-size: 1.1rem;
 }
 
 .progress-bar-wrap {
@@ -821,12 +836,40 @@ roadmap-step {
 
 .lesson-card {
   padding: 24px;
-  transition: transform var(--transition), border-color var(--transition);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .lesson-card:hover {
   transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+  border-color: var(--accent);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.lesson-card.complete {
+  border-color: var(--accent);
+}
+
+.lesson-card.complete::after {
+  content: "✓";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: #021511;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(45, 212, 191, 0.4);
+  z-index: 2;
+  animation: check-pop 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .lesson-header {
@@ -2369,6 +2412,129 @@ roadmap-step {
 
 @keyframes loading {
   to { left: 100%; }
+}
+
+/* Sticky Navigation */
+.sticky-nav {
+  position: sticky;
+  top: 80px;
+  z-index: 100;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter: blur(12px);
+  padding: 12px 0;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sticky-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.sticky-nav-item {
+  white-space: nowrap;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  transition: all var(--transition);
+}
+
+.sticky-nav-item:hover,
+.sticky-nav-item.active {
+  color: var(--text);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.sticky-nav-item.complete {
+  color: #021511;
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+/* Enhanced Code Block with Copy */
+.code-example-wrap {
+  position: relative;
+  margin: 16px 0;
+}
+
+.code-example-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.code-language {
+  color: var(--accent);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+}
+
+.lesson-example .code-block {
+  padding: 16px 14px 16px 0;
+  overflow-x: auto;
+}
+
+.lesson-line {
+  display: block;
+  min-height: 1.5em;
+}
+
+.lesson-line-number {
+  display: inline-block;
+  width: 2.5em;
+  margin-right: 1em;
+  color: color-mix(in srgb, var(--muted) 55%, transparent);
+  text-align: right;
+  user-select: none;
+}
+
+.syntax-keyword { color: #7dd3fc; }
+.syntax-string { color: #fbbf24; }
+.syntax-comment { color: #94a3b8; font-style: italic; }
+.syntax-object { color: #5eead4; }
+.syntax-number { color: #c4b5fd; }
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background: color-mix(in srgb, var(--surface-2) 80%, transparent);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.copy-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.copy-btn.copied {
+  background: var(--accent);
+  color: #021511;
+  border-color: var(--accent);
 }
 
 /* Visual Enhancements */

@@ -7,7 +7,7 @@ import {
   JS_QUIZ_BANK,
   JS_PROJECTS
 } from "../data/js-content.js";
-import { escapeHtml, showToast } from "./ui.js";
+import { escapeHtml, showToast, renderHighlightedCode } from "./ui.js";
 import { loadProgress, markLessonComplete, savePracticeAttempt, saveQuizScore } from "./progress.js";
 
 let completedSet = new Set();
@@ -60,17 +60,17 @@ function renderLessons() {
   el.innerHTML = JS_LESSONS.map((lesson, index) => {
     const isComplete = completedSet.has(lesson.id);
     return `
-      <article class="lesson-card js-lesson-card reveal visible" data-js-lesson="${lesson.id}">
+      <article class="lesson-card js-lesson-card ${isComplete ? "complete" : ""} reveal visible" data-js-lesson="${lesson.id}" id="js-lesson-${lesson.id}">
         <div class="lesson-header">
           <span class="lesson-number">JS Lesson ${index + 1}</span>
-          <span class="lesson-status ${isComplete ? "complete" : ""}">${isComplete ? "Completed" : "Not started"}</span>
+          <span class="lesson-status ${isComplete ? "complete" : ""}">${isComplete ? "Completed" : "In Progress"}</span>
         </div>
         <h3>${escapeHtml(lesson.title)}</h3>
         <p class="lesson-summary">${escapeHtml(lesson.summary)}</p>
         <p class="muted">${escapeHtml(lesson.explanation)}</p>
         <div class="tag-section">
           <p class="tag-label">Example</p>
-          <pre class="code-block"><code>${escapeHtml(lesson.code)}</code></pre>
+          <pre class="code-block"><code>${renderHighlightedCode(lesson.code, "javascript")}</code></pre>
         </div>
         <div class="css-live-lab">
           <div class="editor-panel">
@@ -118,12 +118,25 @@ function checkLesson(card, lesson) {
 }
 
 function updateJsProgressBar(progress) {
-  const bar = document.querySelector("#jsProgressBar");
-  const text = document.querySelector("#jsProgressText");
-  const completed = JS_LESSONS.filter(lesson => progress.completedLessons?.includes(lesson.id)).length;
-  const pct = Math.round((completed / JS_LESSONS.length) * 100);
-  if (bar) bar.style.width = `${pct}%`;
-  if (text) text.textContent = `${completed} of ${JS_LESSONS.length} JS lessons complete (${pct}%)`;
+  const container = document.querySelector(".js-section .progress-tracker");
+  if (!container) return;
+  const completed = JS_LESSONS.filter(lesson => (progress.completedLessons || []).includes(lesson.id)).length;
+  const total = JS_LESSONS.length;
+  const pct = Math.round((completed / total) * 100);
+  const completedIds = new Set(progress.completedLessons || []);
+  container.innerHTML = `
+    <div class="progress-info">
+      <span class="progress-count">${completed} of ${total} JS lessons complete</span>
+      <span class="progress-percentage">${pct}%</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" style="width: ${pct}%"></div></div>
+    <nav class="sticky-nav" aria-label="JavaScript lesson navigation">
+      ${JS_LESSONS.map((lesson, index) => {
+        const done = completedIds.has(lesson.id);
+        return `<a class="sticky-nav-item ${done ? "complete" : ""}" href="#js-lesson-${lesson.id}" aria-label="JavaScript lesson ${index + 1}${done ? ", complete" : ""}">${done ? "✓" : index + 1}</a>`;
+      }).join("")}
+    </nav>
+  `;
 }
 
 async function refreshJsProgress() {

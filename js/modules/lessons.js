@@ -1,5 +1,5 @@
 import { LESSONS, LESSON_LEVELS } from "../data/lessons.js";
-import { escapeHtml, showToast } from "./ui.js";
+import { escapeHtml, showToast, renderHighlightedCode } from "./ui.js";
 import { markLessonComplete, savePracticeAttempt, loadProgress } from "./progress.js";
 
 let completedSet = new Set();
@@ -29,15 +29,19 @@ ${code}
 function renderLessonCard(lesson, index) {
   const isComplete = completedSet.has(lesson.id);
   return `
-    <article class="lesson-card reveal visible" data-lesson="${lesson.id}" id="lesson-${lesson.id}">
+    <article class="lesson-card ${isComplete ? "complete" : ""} reveal visible" data-lesson="${lesson.id}" id="lesson-${lesson.id}">
       <div class="lesson-header">
         <span class="lesson-number">Lesson ${index + 1}</span>
-        <span class="lesson-status ${isComplete ? "complete" : ""}">${isComplete ? "Completed" : "Not started"}</span>
+        <span class="lesson-status ${isComplete ? "complete" : ""}">${isComplete ? "Completed" : "In Progress"}</span>
       </div>
       <h3>${escapeHtml(lesson.title)}</h3>
       <p class="lesson-summary">${escapeHtml(lesson.summary)}</p>
       <div class="lesson-content">
         ${lesson.content.map(p => `<p>${escapeHtml(p)}</p>`).join("")}
+        <div class="code-example-wrap lesson-example">
+          <div class="code-example-heading"><span>Example</span><span class="code-language">HTML</span></div>
+          <pre class="code-block"><code>${renderHighlightedCode(lesson.practice.starter, "html")}</code></pre>
+        </div>
         <ul class="key-points">
           ${lesson.keyPoints.map(k => `<li>${escapeHtml(k)}</li>`).join("")}
         </ul>
@@ -108,20 +112,24 @@ async function refreshProgress() {
 function updateProgressBar(progress) {
   const steps = document.querySelector("#overallProgressSteps");
   const text = document.querySelector("#overallProgressText");
-  const completed = progress.completedLessons?.length || 0;
+  const completed = LESSONS.filter(lesson => (progress.completedLessons || []).includes(lesson.id)).length;
   const total = LESSONS.length;
   const pct = Math.round((completed / total) * 100);
   const completedIds = new Set(progress.completedLessons || []);
   if (steps) {
-    steps.innerHTML = LESSONS.map((lesson, index) => {
-      const done = completedIds.has(lesson.id);
-      return `
-        <a class="progress-step ${done ? "complete" : ""}" href="#lesson-${lesson.id}" aria-label="Lesson ${index + 1}: ${escapeHtml(lesson.title)}${done ? ", complete" : ""}">
-          <span class="step-check" aria-hidden="true"></span>
-          <span class="step-number">${index + 1}</span>
-        </a>
-      `;
-    }).join("");
+    steps.innerHTML = `
+      <div class="progress-info">
+        <span class="progress-count">${completed} of ${total} HTML lessons complete</span>
+        <span class="progress-percentage">${pct}%</span>
+      </div>
+      <div class="progress-bar-wrap"><div class="progress-bar" style="width: ${pct}%"></div></div>
+      <nav class="sticky-nav" aria-label="HTML lesson navigation">
+        ${LESSONS.map((lesson, index) => {
+          const done = completedIds.has(lesson.id);
+          return `<a class="sticky-nav-item ${done ? "complete" : ""}" href="#lesson-${lesson.id}" aria-label="HTML lesson ${index + 1}${done ? ", complete" : ""}">${done ? "✓" : index + 1}</a>`;
+        }).join("")}
+      </nav>
+    `;
   }
   if (text) text.textContent = `${completed} of ${total} lessons complete (${pct}%)`;
 }

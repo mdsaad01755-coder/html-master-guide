@@ -6,6 +6,49 @@ export function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
+export function highlightCode(value, language = "javascript") {
+  const escaped = escapeHtml(value);
+  const tokenPattern = /(&quot;.*?&quot;|&#39;.*?&#39;|`.*?`|\/\/[^\n]*|<!--[\s\S]*?-->|#[a-fA-F0-9]{3,8}\b|\b(?:const|let|var|function|return|if|else|for|while|async|await|new|class|true|false|null|undefined|import|from)\b|\b(?:console|document|window|Array|Object)\b)/g;
+  return escaped.replace(tokenPattern, token => {
+    if (token.startsWith("//") || token.startsWith("<!--")) return `<span class="syntax-comment">${token}</span>`;
+    if (token.startsWith("&quot;") || token.startsWith("&#39;") || token.startsWith("`")) return `<span class="syntax-string">${token}</span>`;
+    if (token.startsWith("#")) return `<span class="syntax-number">${token}</span>`;
+    if (/^(console|document|window|Array|Object)$/.test(token)) return `<span class="syntax-object">${token}</span>`;
+    return `<span class="syntax-keyword">${token}</span>`;
+  });
+}
+
+export function addLineNumbers(value) {
+  return String(value).split("\n").map((line, index) => `<span class="lesson-line"><span class="lesson-line-number">${index + 1}</span>${line || " "}</span>`).join("\n");
+}
+
+export function renderHighlightedCode(value, language = "javascript") {
+  return addLineNumbers(highlightCode(value, language));
+}
+
+export function createCopyButton(code, label = "Copy") {
+  const button = document.createElement("button");
+  button.className = "copy-btn";
+  button.type = "button";
+  button.innerHTML = `<span>${label}</span>`;
+  button.setAttribute("aria-label", "Copy code snippet");
+  button.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(code.trim());
+      button.innerHTML = `<span>✓ Copied</span>`;
+      button.classList.add("copied");
+      showToast("Code copied to clipboard", "success");
+      setTimeout(() => {
+        button.innerHTML = `<span>${label}</span>`;
+        button.classList.remove("copied");
+      }, 2000);
+    } catch {
+      showToast("Copy failed. Select the code manually.", "error");
+    }
+  });
+  return button;
+}
+
 export function initTheme() {
   const themeToggle = document.querySelector("#themeToggle");
   const themeIcon = document.querySelector("#themeIcon");
@@ -53,35 +96,55 @@ export function initReveal() {
 
 export function initCodeCopyButtons() {
   function enhance(root = document) {
-    root.querySelectorAll("pre").forEach(block => {
+    // Find all pre blocks, including those inside code-example-wrap
+    const blocks = root.querySelectorAll("pre, .code-example-wrap pre, .code-block");
+    
+    blocks.forEach(block => {
       if (block.dataset.copyReady === "true") return;
-      const code = block.querySelector("code");
-      if (!code) return;
+      const code = block.querySelector("code") || block;
+      if (!code || code.tagName === "BUTTON") return;
 
       block.dataset.copyReady = "true";
-      block.classList.add("copyable-code");
+      block.style.position = "relative";
+      
       const button = document.createElement("button");
-      button.className = "copy-code-btn";
+      button.className = "copy-btn";
       button.type = "button";
-      button.textContent = "Copy Code";
+      button.innerHTML = `<span>Copy</span>`;
+      button.setAttribute("aria-label", "Copy code snippet");
+      
       button.addEventListener("click", async () => {
         try {
-          await navigator.clipboard.writeText(code.textContent || "");
-          button.textContent = "Copied";
-          showToast("Code copied", "success");
+          const copySource = code.cloneNode(true);
+          copySource.querySelectorAll(".lesson-line-number").forEach(number => number.remove());
+          const textToCopy = copySource.innerText || copySource.textContent || "";
+          await navigator.clipboard.writeText(textToCopy.trim());
+          
+          const originalHTML = button.innerHTML;
+          button.innerHTML = `<span>✓ Copied</span>`;
+          button.classList.add("copied");
+          
+          showToast("Code copied to clipboard", "success");
+          
           setTimeout(() => {
-            button.textContent = "Copy Code";
-          }, 1400);
-        } catch {
-          showToast("Copy failed. Select the code manually.", "info");
+            button.innerHTML = originalHTML;
+            button.classList.remove("copied");
+          }, 2000);
+        } catch (err) {
+          console.error("Copy failed:", err);
+          showToast("Copy failed", "error");
         }
       });
+      
       block.appendChild(button);
     });
   }
 
   enhance();
-  document.addEventListener("html-master:content-rendered", () => enhance());
+  // Re-run when content is dynamically rendered
+  document.addEventListener("html-master:content-rendered", () => {
+    setTimeout(() => enhance(), 100);
+  });
 }
 
 export function showToast(message, type = "info") {
