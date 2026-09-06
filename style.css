@@ -1237,17 +1237,47 @@ roadmap-step {
 }
 
 .reference-table-wrap {
-  overflow-x: auto;
+  overflow: auto;
+  max-height: min(72vh, 760px);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--surface) 92%, transparent);
   box-shadow: var(--shadow-premium);
+  scrollbar-color: var(--accent) var(--surface-2);
+}
+
+.reference-search {
+  margin-top: 18px;
+}
+
+.reference-search label {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.html-reference-table {
+  min-width: 1280px;
 }
 
 .reference-table {
   width: 100%;
   min-width: 860px;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reference-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--surface-2) 58%, transparent);
+}
+
+.reference-table tbody tr {
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.reference-table tbody tr:hover {
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 .reference-table th,
@@ -1259,15 +1289,58 @@ roadmap-step {
 }
 
 .reference-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   color: var(--accent);
+  background: var(--surface-2);
+  box-shadow: inset 0 -1px 0 var(--line);
   font-size: 0.82rem;
   font-family: "JetBrains Mono", monospace;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .reference-table td {
   color: var(--muted);
   font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.reference-table td:first-child {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.reference-table td small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.table-index {
+  float: right;
+  color: var(--muted);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.table-code {
+  min-width: 180px;
+  margin: 0;
+  white-space: pre-wrap;
+  color: var(--accent-2);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+}
+
+.table-empty {
+  padding: 28px !important;
+  color: var(--muted) !important;
+  text-align: center !important;
 }
 
 .reference-table tr:last-child td {

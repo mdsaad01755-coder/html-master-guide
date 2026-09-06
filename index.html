@@ -186,7 +186,7 @@
       </div>
 
       <div class="section-heading compact-heading reveal"><p class="eyebrow">Reference</p><h2>CSS Properties</h2></div>
-      <div class="search-wrap reveal"><input type="search" id="cssReferenceSearch" placeholder="Search property: color, flex, grid..."></div>
+      <div class="search-wrap reference-search reveal"><label for="cssReferenceSearch">Filter CSS properties</label><input type="search" id="cssReferenceSearch" placeholder="Search property, values, syntax, or example..." autocomplete="off"></div>
       <div class="reference-table-wrap reveal"><table class="reference-table"><thead><tr><th>Property</th><th>Syntax</th><th>Values</th><th>Support</th><th>Example</th></tr></thead><tbody id="cssReferenceBody"></tbody></table></div>
       
       <div class="section-heading compact-heading reveal"><p class="eyebrow">Quick Help</p><h2>CSS Cheat Sheet</h2></div>
@@ -223,7 +223,7 @@
       <div class="lesson-grid" id="jsLessonsContent"></div>
 
       <div class="section-heading compact-heading reveal"><p class="eyebrow">Reference</p><h2>JS Concepts</h2></div>
-      <div class="search-wrap reveal"><input type="search" id="jsReferenceSearch" placeholder="Search concept: console, const, fetch..."></div>
+      <div class="search-wrap reference-search reveal"><label for="jsReferenceSearch">Filter JavaScript concepts</label><input type="search" id="jsReferenceSearch" placeholder="Search concept, syntax, usage, or example..." autocomplete="off"></div>
       <div class="reference-table-wrap reveal"><table class="reference-table"><thead><tr><th>Concept</th><th>Syntax</th><th>Usage</th><th>Support</th><th>Example</th></tr></thead><tbody id="jsReferenceBody"></tbody></table></div>
 
       <div class="section-heading compact-heading reveal"><p class="eyebrow">Quick Help</p><h2>JS Cheat Sheet</h2></div>
@@ -290,8 +290,16 @@
         <p class="eyebrow">Reference</p>
         <h2 id="tags-title">HTML Tags</h2>
       </div>
-      <div class="search-wrap reveal"><input type="search" id="tagSearch" placeholder="Search tags..."></div>
-      <div class="tag-list" id="tagList"></div>
+      <div class="search-wrap reference-search reveal">
+        <label for="tagSearch">Filter HTML tags</label>
+        <input type="search" id="tagSearch" placeholder="Search tags, attributes, usage, or syntax..." autocomplete="off">
+      </div>
+      <div class="reference-table-wrap reveal">
+        <table class="reference-table html-reference-table">
+          <thead><tr><th scope="col">Tag</th><th scope="col">Description</th><th scope="col">Attributes</th><th scope="col">Syntax</th><th scope="col">Example</th><th scope="col">Usage</th><th scope="col">Output</th><th scope="col">Common mistakes</th></tr></thead>
+          <tbody id="tagList"></tbody>
+        </table>
+      </div>
     </section>
 
     <section class="section cheatsheet-section" id="cheatsheet" aria-labelledby="cheatsheet-title">
