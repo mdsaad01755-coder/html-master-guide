@@ -14,6 +14,22 @@ import { refreshLessonProgress } from "./lessons.js";
 import { getApp } from "./auth.js";
 import { initProgress } from "./progress.js";
 
+function friendlyAuthError(error) {
+  const messages = {
+    "auth/invalid-credential": "Email বা password সঠিক নয়। আবার চেষ্টা করুন।",
+    "auth/invalid-login-credentials": "Email বা password সঠিক নয়। আবার চেষ্টা করুন।",
+    "auth/user-not-found": "এই email দিয়ে কোনো account পাওয়া যায়নি।",
+    "auth/wrong-password": "Password সঠিক নয়।",
+    "auth/email-already-in-use": "এই email দিয়ে account আগে থেকেই আছে। Sign In করুন।",
+    "auth/weak-password": "Password কমপক্ষে ৬ অক্ষরের হতে হবে।",
+    "auth/invalid-email": "একটি সঠিক email address দিন।",
+    "auth/popup-closed-by-user": "Google sign-in window বন্ধ করা হয়েছে।",
+    "auth/popup-blocked": "Browser popup block করেছে। Google sign-in চালাতে popup allow করুন।",
+    "auth/operation-not-allowed": "Firebase Console-এ এই sign-in method enable করা হয়নি।"
+  };
+  return messages[error?.code] || "Authentication ব্যর্থ হয়েছে। আবার চেষ্টা করুন।";
+}
+
 export function initAuthUI() {
   const authBtn = document.querySelector("#authBtn");
   const authForm = document.querySelector("#authForm");
@@ -82,6 +98,14 @@ export function initAuthUI() {
       return;
     }
 
+    const submitBtn = document.querySelector("#authSubmit");
+    const originalLabel = submitBtn?.textContent || "Continue";
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = mode === "login" ? "Signing in…" : "Creating account…";
+      submitBtn.setAttribute("aria-busy", "true");
+    }
+
     try {
       if (mode === "login") {
         await loginWithEmail(email, password);
@@ -93,17 +117,28 @@ export function initAuthUI() {
       closeModal("authModal");
       authForm.reset();
     } catch (err) {
-      if (authError) authError.textContent = err.message || "Authentication failed.";
+      if (authError) authError.textContent = friendlyAuthError(err);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+        submitBtn.removeAttribute("aria-busy");
+      }
     }
   });
 
   googleBtn?.addEventListener("click", async () => {
+    googleBtn.disabled = true;
+    googleBtn.setAttribute("aria-busy", "true");
     try {
       await loginWithGoogle();
       showToast("Signed in with Google!", "success");
       closeModal("authModal");
     } catch (err) {
-      if (authError) authError.textContent = err.message || "Google sign-in failed.";
+      if (authError) authError.textContent = friendlyAuthError(err);
+    } finally {
+      googleBtn.disabled = false;
+      googleBtn.removeAttribute("aria-busy");
     }
   });
 
